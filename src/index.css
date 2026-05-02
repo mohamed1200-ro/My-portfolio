@@ -17,3 +17,22 @@ body {
 #root {
   min-height: 100vh;
 }
+
+.premium-btn {
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 14px 35px -20px rgba(34, 211, 238, 0.8);
+}
+
+.premium-btn::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(120deg, rgba(34, 211, 238, 0), rgba(34, 211, 238, 0.45), rgba(34, 211, 238, 0));
+  transform: translateX(-100%);
+  transition: transform 0.55s ease;
+}
+
+.premium-btn:hover::before {
+  transform: translateX(100%);
+}

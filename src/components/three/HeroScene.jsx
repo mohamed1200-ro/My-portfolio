@@ -1,5 +1,12 @@
 import { Canvas, useFrame } from '@react-three/fiber'
-import { Environment, Float, MeshDistortMaterial, Sphere, Torus } from '@react-three/drei'
+import {
+  Environment,
+  Float,
+  MeshDistortMaterial,
+  Sphere,
+  Stars,
+  Torus,
+} from '@react-three/drei'
 import { useRef } from 'react'
 
 function FloatingObjects() {
@@ -42,11 +49,13 @@ function FloatingObjects() {
 
 export default function HeroScene() {
   return (
-    <Canvas camera={{ position: [0, 0, 5], fov: 48 }}>
+    <Canvas camera={{ position: [0, 0, 5], fov: 48 }} dpr={[1, 1.5]}>
       <ambientLight intensity={0.45} />
       <directionalLight position={[5, 4, 3]} intensity={1.1} />
       <pointLight position={[-4, -2, 2]} intensity={0.8} color="#22d3ee" />
+      <pointLight position={[4, 2, 2]} intensity={0.7} color="#c084fc" />
       <FloatingObjects />
+      <Stars radius={90} depth={40} count={2000} factor={3} saturation={0.5} fade speed={1.1} />
       <Environment preset="city" />
     </Canvas>
   )

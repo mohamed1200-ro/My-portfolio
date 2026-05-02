@@ -7,6 +7,7 @@ import SkillsSection from './components/SkillsSection'
 import ProjectsSection from './components/ProjectsSection'
 import ContactSection from './components/ContactSection'
 import Loader from './components/Loader'
+import FloatingOrbs from './components/FloatingOrbs'
 
 function App() {
   const [isLoading, setIsLoading] = useState(true)
@@ -26,8 +27,9 @@ function App() {
   }, [])
 
   return (
-    <div className="relative min-h-screen bg-[#030712] text-slate-200">
+    <div className="relative min-h-screen overflow-x-clip bg-[#030712] text-slate-200">
       <AnimatePresence>{isLoading ? <Loader /> : null}</AnimatePresence>
+      <FloatingOrbs />
       <motion.div
         aria-hidden
         className="pointer-events-none fixed z-50 hidden h-56 w-56 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-300/20 blur-3xl md:block"
@@ -35,7 +37,7 @@ function App() {
         transition={{ type: 'spring', mass: 0.12, stiffness: 120, damping: 12 }}
       />
       <Navbar />
-      <main>
+      <main className="relative z-10">
         <HeroSection />
         <AboutSection />
         <SkillsSection />
