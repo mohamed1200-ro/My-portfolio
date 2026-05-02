@@ -1,5 +1,5 @@
-import { lazy, Suspense, useRef } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { lazy, Suspense, useEffect, useRef, useState } from 'react'
+import { motion, useMotionValue, useScroll, useTransform } from 'framer-motion'
 import AnimatedText from './AnimatedText'
 import TiltCard from './TiltCard'
 
@@ -7,8 +7,24 @@ const HeroScene = lazy(() => import('./three/HeroScene'))
 
 export default function HeroSection() {
   const targetRef = useRef(null)
+  const [glitch, setGlitch] = useState(true)
+  const mx = useMotionValue(0)
+  const my = useMotionValue(0)
   const { scrollYProgress } = useScroll({ target: targetRef, offset: ['start start', 'end start'] })
   const y = useTransform(scrollYProgress, [0, 1], [0, 120])
+  const nameX = useTransform(mx, [-40, 40], [-12, 12])
+  const nameY = useTransform(my, [-40, 40], [-6, 6])
+
+  useEffect(() => {
+    const timer = setTimeout(() => setGlitch(false), 2200)
+    return () => clearTimeout(timer)
+  }, [])
+
+  const handleMove = (event) => {
+    const rect = event.currentTarget.getBoundingClientRect()
+    mx.set(event.clientX - (rect.left + rect.width / 2))
+    my.set(event.clientY - (rect.top + rect.height / 2))
+  }
 
   return (
     <section id="home" ref={targetRef} className="relative min-h-screen overflow-hidden">
@@ -29,11 +45,43 @@ export default function HeroSection() {
           >
             Frontend Developer
           </motion.p>
-          <AnimatedText
-            as="h1"
-            text="Mohamed Elsaid"
-            className="max-w-3xl text-5xl font-bold leading-tight text-white md:text-7xl"
-          />
+          <motion.div
+            onMouseMove={handleMove}
+            onMouseLeave={() => {
+              mx.set(0)
+              my.set(0)
+            }}
+            className="relative max-w-3xl"
+          >
+            <motion.h1
+              style={{ x: nameX, y: nameY, transformPerspective: 900 }}
+              initial={{ opacity: 0, y: 34, letterSpacing: '0.3em' }}
+              animate={{
+                opacity: 1,
+                y: 0,
+                letterSpacing: '0.02em',
+                textShadow: glitch
+                  ? [
+                      '0 0 0 rgba(34,211,238,0)',
+                      '3px 0 18px rgba(34,211,238,0.35)',
+                      '-3px 0 18px rgba(167,139,250,0.35)',
+                      '0 0 0 rgba(34,211,238,0)',
+                    ]
+                  : '0 10px 32px rgba(34,211,238,0.2)',
+              }}
+              transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+              className="text-5xl font-bold leading-tight text-white md:text-7xl"
+            >
+              Mohamed Elsayed
+            </motion.h1>
+            <motion.div
+              aria-hidden
+              initial={{ opacity: 0, scaleX: 0 }}
+              animate={{ opacity: 0.9, scaleX: 1 }}
+              transition={{ delay: 0.35, duration: 0.8 }}
+              className="mt-2 h-px origin-left bg-gradient-to-r from-cyan-300/70 via-violet-300/50 to-transparent"
+            />
+          </motion.div>
           <AnimatedText
             as="h2"
             text="Frontend Developer (React.js)"
@@ -75,7 +123,7 @@ export default function HeroSection() {
           >
             <img
               src="/images/mohamed-photo.png"
-              alt="Mohamed Elsaid portrait"
+              alt="Mohamed Elsayed portrait"
               className="h-[430px] w-full rounded-[1.6rem] object-cover object-center"
             />
           </motion.div>

@@ -14,7 +14,7 @@ export default function Navbar() {
     >
       <nav className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-4">
         <a href="#home" className="text-lg font-semibold tracking-wide text-white">
-          Mohamed<span className="text-cyan-300">.</span>
+          Mohamed Elsayed<span className="text-cyan-300">.</span>
         </a>
         <button
           type="button"

@@ -8,6 +8,7 @@ import ProjectsSection from './components/ProjectsSection'
 import ContactSection from './components/ContactSection'
 import Loader from './components/Loader'
 import FloatingOrbs from './components/FloatingOrbs'
+import Footer from './components/Footer'
 
 function App() {
   const [isLoading, setIsLoading] = useState(true)
@@ -44,6 +45,7 @@ function App() {
         <ProjectsSection />
         <ContactSection />
       </main>
+      <Footer />
     </div>
   )
 }
