@@ -1,6 +1,8 @@
+import { lazy, Suspense } from 'react'
 import { motion } from 'framer-motion'
-import SkillIcon3D from './three/SkillIcon3D'
 import { skills } from '../data'
+
+const SkillIcon3D = lazy(() => import('./three/SkillIcon3D'))
 
 export default function SkillsSection() {
   return (
@@ -18,7 +20,9 @@ export default function SkillsSection() {
             className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-lg"
           >
             <div className="h-36 w-full">
-              <SkillIcon3D index={index} />
+              <Suspense fallback={null}>
+                <SkillIcon3D index={index} />
+              </Suspense>
             </div>
             <p className="mt-5 text-lg font-medium text-white">{skill}</p>
             <p className="mt-2 text-sm text-slate-300">

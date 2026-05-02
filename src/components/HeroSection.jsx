@@ -1,11 +1,15 @@
+import { lazy, Suspense } from 'react'
 import { motion } from 'framer-motion'
-import HeroScene from './three/HeroScene'
+
+const HeroScene = lazy(() => import('./three/HeroScene'))
 
 export default function HeroSection() {
   return (
     <section id="home" className="relative min-h-screen overflow-hidden">
       <div className="absolute inset-0 opacity-80">
-        <HeroScene />
+        <Suspense fallback={null}>
+          <HeroScene />
+        </Suspense>
       </div>
       <div className="absolute inset-0 bg-gradient-to-b from-[#03071199] via-[#030712dd] to-[#030712]" />
       <div className="relative mx-auto grid min-h-screen w-full max-w-6xl items-center gap-10 px-6 py-20 lg:grid-cols-[1fr_380px]">
