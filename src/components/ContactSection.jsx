@@ -37,6 +37,14 @@ export default function ContactSection() {
         </form>
         <div className="mt-8 flex flex-wrap gap-4 text-sm">
           <a
+            href="https://wa.me/201226755302"
+            target="_blank"
+            rel="noreferrer"
+            className="rounded-full border border-emerald-300/40 bg-emerald-300/10 px-4 py-2 text-emerald-200 transition hover:bg-emerald-300/20"
+          >
+            WhatsApp
+          </a>
+          <a
             href="https://www.linkedin.com/in/mohamed-elsaid-01a81534b/"
             target="_blank"
             rel="noreferrer"
